@@ -13,11 +13,24 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Build and Push Docker Image
+        run: |
+          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/sopkathon-be-app:latest .
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/sopkathon-be-app:latest
 
       - name: Create Deployment Package
         run: |
+          echo "DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }}" > .env
           echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+          echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
           echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
+          echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env
           echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
           echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> .env
           echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> .env
@@ -26,7 +39,8 @@ jobs:
           echo "CODEDEPLOY_APP_NAME=${{ secrets.CODEDEPLOY_APP_NAME }}" >> .env
           echo "CODEDEPLOY_DG_NAME=${{ secrets.CODEDEPLOY_DG_NAME}}" >> .env
           
-          zip -r deploy.zip .env deploy.sh appspec.yml
+          zip -r deploy.zip .env docker-compose.yml deploy.sh appspec.yml
+
 
       - name: Configure AWS credentials
         run: |
