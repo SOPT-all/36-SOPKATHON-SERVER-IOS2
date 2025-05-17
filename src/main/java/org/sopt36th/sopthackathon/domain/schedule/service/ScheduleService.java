@@ -1,11 +1,13 @@
 package org.sopt36th.sopthackathon.domain.schedule.service;
 
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.sopt36th.sopthackathon.domain.course.domain.Course;
 import org.sopt36th.sopthackathon.domain.course.domain.Shop;
 import org.sopt36th.sopthackathon.domain.course.repository.CourseRepository;
 import org.sopt36th.sopthackathon.domain.course.repository.ShopRepository;
 import org.sopt36th.sopthackathon.domain.schedule.domain.Schedule;
+import org.sopt36th.sopthackathon.domain.schedule.dto.reqeust.ReservationRequest;
 import org.sopt36th.sopthackathon.domain.schedule.dto.response.CourseDetailResponse;
 import org.sopt36th.sopthackathon.domain.schedule.dto.response.ScheduledCourse;
 import org.sopt36th.sopthackathon.domain.schedule.dto.response.ScheduledCourseList;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -27,7 +30,12 @@ public class ScheduleService {
     private final ShopRepository shopRepository;
 
     // 소연
-
+    @Transactional
+    public void makeReservation(Long scheduleId, ReservationRequest reservationRequest) {
+        Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(() -> new RuntimeException("해당 강의를 "
+                + "찾을 수 없습니다."));
+        schedule.updateNumberOfPeople(reservationRequest.numberOfPeople());
+    }
 
     // 승준
     public CourseDetailResponse getCoursesDetail(String phoneNumber, Long coursesId){

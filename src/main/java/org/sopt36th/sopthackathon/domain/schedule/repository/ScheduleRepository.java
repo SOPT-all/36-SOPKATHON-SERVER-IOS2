@@ -9,6 +9,7 @@ import java.util.List;
 @Repository
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
     List<Schedule> findAllByCourseId(Long coursesId);
+
     // 소연
 
 
