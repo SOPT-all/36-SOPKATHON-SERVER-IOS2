@@ -1,4 +1,4 @@
-FROM gradle:8.0.2-jdk17 AS build
+FROM gradle:8.7.0-jdk21 AS build
 WORKDIR /app/kaswhy
 
 COPY . .
@@ -8,7 +8,7 @@ RUN ./gradlew build -x test
 
 RUN cp $(ls /app/kaswhy/build/libs/*.jar | head -n 1) /app/kaswhy/build/libs/app.jar
 
-FROM openjdk:17-jdk-slim
+FROM openjdk:21-jdk-slim
 WORKDIR /app
 
 COPY --from=build /app/kaswhy/build/libs/app.jar app.jar
