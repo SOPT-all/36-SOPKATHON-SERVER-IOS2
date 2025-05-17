@@ -29,7 +29,8 @@ public class ScheduleController {
             @PathVariable Long scheduleId,
             @RequestBody ReservationRequest reservationRequest
     ) {
-
+        scheduleService.makeReservation(scheduleId, reservationRequest);
+        return new ApiResponse<>(HttpStatus.OK, "성공적으로 예약했습니다.");
     }
 
     // 승준

@@ -18,5 +18,9 @@ public class Schedule extends BaseEntity {
     private final Long courseId;
     private final Long userId;
     private final LocalDateTime time;
-    private final int numberOfPeople;
+    private int numberOfPeople;
+
+    public void updateNumberOfPeople(int numberOfPeople) {
+        this.numberOfPeople = numberOfPeople;
+    }
 }
