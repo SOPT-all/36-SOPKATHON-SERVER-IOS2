@@ -29,7 +29,7 @@ public class CourseService {
                 .map(course -> new GetCourseResponse(
                         course.getId(),
                         course.getImage(),
-                        course.getProductName(),
+                        course.getTitle(),
                         course.getDescription(),
                         course.getIngredient()
                 ))

@@ -19,8 +19,6 @@ public class Course extends BaseEntity {
     @JoinColumn(name = "shop_id")
     private final Shop shop;
 
-    private final String productName;
-
     private final String title;
 
     private final String description;
