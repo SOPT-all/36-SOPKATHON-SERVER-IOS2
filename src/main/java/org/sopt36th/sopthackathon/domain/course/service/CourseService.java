@@ -1,8 +1,11 @@
 package org.sopt36th.sopthackathon.domain.course.service;
 
+import static java.util.stream.Collectors.*;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.sopt36th.sopthackathon.domain.course.domain.Category;
 import org.sopt36th.sopthackathon.domain.course.domain.Course;
 import org.sopt36th.sopthackathon.domain.course.dto.response.GetCourseResponse;
 import org.sopt36th.sopthackathon.domain.course.dto.response.GetCoursesResponse;
@@ -33,7 +36,28 @@ public class CourseService {
                         course.getDescription(),
                         course.getIngredient()
                 ))
-                .collect(Collectors.toList());
+                .collect(toList());
+
+        return new GetCoursesResponse(courseResponses);
+    }
+
+    public GetCoursesResponse getFilteredCourses(String phoneNumber, String categoryName) {
+        List<Category> categories = categoryRepository.findAllByName(categoryName);
+
+        List<Course> courses = categories.stream()
+                .map(Category::getCourse)
+                .distinct()
+                .toList();
+
+        List<GetCourseResponse> courseResponses = courses.stream()
+                .map(course -> new GetCourseResponse(
+                        course.getId(),
+                        course.getImage(),
+                        course.getTitle(),
+                        course.getDescription(),
+                        course.getIngredient()
+                ))
+                .collect(toList());
 
         return new GetCoursesResponse(courseResponses);
     }
