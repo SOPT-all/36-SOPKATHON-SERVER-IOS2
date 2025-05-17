@@ -1,4 +1,7 @@
 package org.sopt36th.sopthackathon.domain.schedule.dto.response;
 
-public class ReservationResponse {
+import java.time.LocalDateTime;
+import org.sopt36th.sopthackathon.domain.course.dto.response.ShopResponse;
+
+public record ReservationResponse(Long id, String image, String title, ShopResponse shopResponse, LocalDateTime time) {
 }

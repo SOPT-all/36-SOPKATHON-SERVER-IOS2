@@ -4,6 +4,7 @@ package org.sopt36th.sopthackathon.domain.schedule.controller;
 import lombok.RequiredArgsConstructor;
 import org.sopt36th.sopthackathon.domain.schedule.dto.reqeust.ReservationRequest;
 import org.sopt36th.sopthackathon.domain.schedule.dto.response.CourseDetailResponse;
+import org.sopt36th.sopthackathon.domain.schedule.dto.response.ReservationsResponse;
 import org.sopt36th.sopthackathon.domain.schedule.service.ScheduleService;
 import org.sopt36th.sopthackathon.global.response.ApiResponse;
 import org.springframework.http.HttpStatus;
@@ -31,6 +32,11 @@ public class ScheduleController {
     ) {
         scheduleService.makeReservation(scheduleId, reservationRequest);
         return new ApiResponse<>(HttpStatus.OK, "성공적으로 예약했습니다.");
+    }
+
+    @GetMapping("/schedules")
+    public ApiResponse<ReservationsResponse> getReservations(@RequestHeader String phoneNumber) {
+        return new ApiResponse<>(HttpStatus.OK, "성공적으로 조회했습니다.", scheduleService.getReservations(phoneNumber));
     }
 
     // 승준
