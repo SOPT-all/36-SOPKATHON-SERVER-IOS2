@@ -1,18 +1,21 @@
 package org.sopt36th.sopthackathon.domain.schedule.service;
 
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.sopt36th.sopthackathon.domain.course.domain.Course;
 import org.sopt36th.sopthackathon.domain.course.domain.Shop;
+import org.sopt36th.sopthackathon.domain.course.dto.response.ShopResponse;
 import org.sopt36th.sopthackathon.domain.course.repository.CourseRepository;
 import org.sopt36th.sopthackathon.domain.course.repository.ShopRepository;
 import org.sopt36th.sopthackathon.domain.schedule.domain.Schedule;
 import org.sopt36th.sopthackathon.domain.schedule.dto.reqeust.ReservationRequest;
 import org.sopt36th.sopthackathon.domain.schedule.dto.response.CourseDetailResponse;
+import org.sopt36th.sopthackathon.domain.schedule.dto.response.ReservationResponse;
+import org.sopt36th.sopthackathon.domain.schedule.dto.response.ReservationsResponse;
 import org.sopt36th.sopthackathon.domain.schedule.dto.response.ScheduledCourse;
 import org.sopt36th.sopthackathon.domain.schedule.dto.response.ScheduledCourseList;
 import org.sopt36th.sopthackathon.domain.schedule.dto.response.ShopDetailInfo;
 import org.sopt36th.sopthackathon.domain.schedule.repository.ScheduleRepository;
+import org.sopt36th.sopthackathon.domain.user.domain.User;
 import org.sopt36th.sopthackathon.domain.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +39,35 @@ public class ScheduleService {
                 + "찾을 수 없습니다."));
         schedule.updateNumberOfPeople(reservationRequest.numberOfPeople());
     }
+
+    public ReservationsResponse getReservations(String phoneNumber) {
+        User user = userRepository.findByPhoneNumber(phoneNumber);
+
+        List<Schedule> schedules = scheduleRepository.findAllByUserId(user.getId());
+
+        List<ReservationResponse> reservations = schedules.stream()
+                .map(schedule -> {
+                    Course course = courseRepository.findById(schedule.getCourseId())
+                            .orElseThrow(() -> new IllegalArgumentException("Course not found with id: " + schedule.getCourseId()));
+                    ShopResponse shopResponse = new ShopResponse(
+                            course.getShop().getId(),
+                            course.getShop().getName()
+                    );
+
+                    return new ReservationResponse(
+                            schedule.getId(),
+                            course.getImage(),
+                            course.getTitle(),
+                            shopResponse,
+                            schedule.getTime()
+                    );
+                })
+                .toList();
+
+        return new ReservationsResponse(reservations);
+    }
+
+
 
     // 승준
     public CourseDetailResponse getCoursesDetail(String phoneNumber, Long coursesId){
