@@ -5,10 +5,10 @@ import org.sopt36th.sopthackathon.global.error.ErrorCode;
 import org.springframework.http.HttpStatus;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public record ApiResponse<T>(HttpStatus status, String message, T result) {
+public record ApiResponse<T>(HttpStatus code, String message, T data) {
 
-    public ApiResponse(HttpStatus status, String message) {
-        this(status, message, null);
+    public ApiResponse(HttpStatus code, String message) {
+        this(code, message, null);
     }
 
     public ApiResponse(ErrorCode errorCode) {
