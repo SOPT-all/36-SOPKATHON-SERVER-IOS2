@@ -1,8 +1,8 @@
 FROM gradle:8.0.2-jdk17 AS build
 WORKDIR /app/kaswhy
 
-COPY . /app/kaswhy
-RUN ls -l
+COPY . .
+RUN ls -al
 RUN chmod +x gradlew
 RUN ./gradlew build -x test
 
