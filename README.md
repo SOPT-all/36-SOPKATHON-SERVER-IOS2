@@ -6,16 +6,24 @@
 <br>
 
 ![image](https://github.com/user-attachments/assets/f0a920ec-58e0-4517-a5a4-03326b40458b)
-![image](https://github.com/user-attachments/assets/c49196a1-cd6b-4922-b81f-8be04450e5c2)
 
 <br><br>
 
 ## 🗝️ Key Feature
-1️⃣ 원하는 카테고리의 원데이 클래스를 선택하면, 상품 클래스에 사용된 부품을 아이콘으로 확인할 수 있어요.
 
-2️⃣ 예약 인원, 예약 날짜와 시간만 선택하면 예약이 완료돼요. 
+### 1️⃣ 원하는 카테고리의 원데이 클래스를 선택하면, 상품 클래스에 사용된 부품을 아이콘으로 확인할 수 있어요. 
+![image](https://github.com/user-attachments/assets/4eb996a9-bad0-4cb5-8b21-f053dcf8837f) 
+<br>
 
-3️⃣ 예약 내역을 통해 지금까지 몇 번의 UP사이클링을 실천했는지 한 눈에 확인할 수 있어요.
+### 2️⃣ 예약 인원, 예약 날짜와 시간만 선택하면 예약이 완료돼요. 
+![image](https://github.com/user-attachments/assets/07574a83-ea63-4232-8e62-8fc49b013170)
+<br>
+
+
+### 3️⃣ 예약 내역을 통해 지금까지 몇 번의 UP사이클링을 실천했는지 한 눈에 확인할 수 있어요.
+![image](https://github.com/user-attachments/assets/6cd1c038-79fc-49d3-8b70-607311f048a1)
+<br>
+
 
 <br><br>
 
@@ -27,6 +35,11 @@
 - Nginx for Web Server(Reverse-Proxy)
 
 <br><br>
+
+## 🏘 Architecture
+![이미지](https://github.com/user-attachments/assets/7f90f0d3-73a9-4cf8-95c7-5625d5e82de6)
+<br><br><br>
+
 
 ## 🤙🏻 Convention 
 #### Github
